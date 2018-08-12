@@ -9,9 +9,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <title>DAY-1</title>
+    
     <style>
-     
+      body{
+        padding:0;
+        margin:0;
+        background-color:black;
+      }
+      .home-index{
+        background: url('img/background_1.jpg') no-repeat;
+        min-height: 700px;
+        background-size:cover;
+        background-attachment: fixed;
+      }
+      .overlay{
+        position: absolute;
+         background-color: rgba(0,0,0,0.1);
+        top:0;
+        left:0;
+        width: 100%;
+        min-height: 700px;
+      }
+      .navbar{
+        opacity: 0.6;
+      }
+      .content{
+        padding-top: 200px;
+      }
     </style>
+
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
@@ -41,7 +67,23 @@
       </div>
       </nav>
       <div class="home-index">
-        
+        <div class="overlay">
+          <div class="content">
+            <div class="container">
+              <div class="row">
+                
+                <div class="col-lg-4">
+                  <div class="display-1">Hieu So</div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div class="display-5">Hieu So</div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     <!-- Optional JavaScript -->

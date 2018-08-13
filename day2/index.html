@@ -6,9 +6,33 @@
     <title>Transform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <style>
+        .trans{
+            width: 80px;
+            height: 50px;
+            padding: 5px 5px 5px 5px;
+            background-color: black;
+            color:white;
+            font-weight: bolder; 
+            transition:2s;
+        }
+        .trans:hover{
+            -ms-transform: rotate(20deg); /* IE 9 */
+            -webkit-transform: rotate(20deg); /* Safari 3-8 */
+            transform: rotate(20deg);
+        }
+        
+    </style>
 </head>
 <body>
-    
+    <!-- Dinh nghia cai tac dung can de lam gi. roi moi bat dau ap dung transform tren cai ma minh can -->
+    <div class="trans">
+        TEXTING
+    </div>
+
+    <h1>3D transform</h1>
+    <div class="3Dtrans">
+        
+    </div>
 </body>
 </html>

@@ -35,7 +35,14 @@
                         });
                         // $('#heading1').hide();
                         $('p span').css('color','red');
-                        
+                        //focus
+                        $('input').focus(function(){
+                            $(this).css('background','pink');
+                        });
+                        //unfocus
+                        $('input').blur(function(){
+                            $(this).css('background','white');
+                        });
                     });
                     
                 </script>
@@ -60,6 +67,7 @@
         <h1>Mouse Event</h1>
         <button id="btn1">Button 1</button>
         <button id="btn2">Button 2</button>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
         
     </body>
 </html>

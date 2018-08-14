@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>JQuery</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <style>
+            body{
+                line-height: 1.5em;
+            }
+            header{
+                background: black;
+                color:white;
+                padding: 10px;
+                text-align: center;
+            }
+            #container{
+                width:90%;
+                margin:auto;
+                padding:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+                <h1>JQuery Crash Course</h1>
+                <script>
+                    $(document).ready(function(){
+                        $('#btn1').click(function(){
+                            console.log('print');
+                            //$('.para1').hide();
+                            $('.para1').toggle(2000,"linear",function(){alert("one two three")});
+                        });
+                        
+                        $('#btn2').on('click',function(){
+                            $('.para1').show();
+                        });
+                        // $('#heading1').hide();
+                        $('p span').css('color','red');
+                        
+                    });
+                    
+                </script>
+        </header>
+        
+        <div id="container">
+            <h1 id="heading1">
+                Heading one
+            </h1>
+            <p class="para1">
+                Deserunt nisi elit ut ex velit culpa Lorem mollit ullamco esse pariatur.
+                <span>Irure eu fugiat</span> nulla sit magna labore ex in pariatur exercitation.
+            </p>
+            <h1 id="heading2">
+                    Heading Two
+            </h1>
+            <p class="para1">
+                Deserunt nisi elit ut ex velit culpa Lorem mollit ullamco esse pariatur.
+                <span>Irure eu fugiat</span> nulla sit magna labore ex in pariatur exercitation.
+            </p>
+        </div>
+        <h1>Mouse Event</h1>
+        <button id="btn1">Button 1</button>
+        <button id="btn2">Button 2</button>
+        
+    </body>
+</html>

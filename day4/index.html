@@ -109,7 +109,13 @@
             // console.log($('.row1').height());
             var dt = new Date();
             var n= dt.getMonth()+1;
+            var year  = dt.getFullYear();
+            //console.log(year);
             //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
+            printDay(n,year);
+            //print month and year to the current position
+            
+
             //getting current day in a month
             //console.log(dt.getDate(dt.getMonth()));
             //getting number of day in a month
@@ -117,16 +123,54 @@
             //get the first day in a month
             //const firstDay = new Date(dt.getFullYear(),dt.getMonth(),1);
             //console.log(firstDay.getDay());
-            // when I hit a button the month will be changed and design is going to change as well.
+          
+            // when I hit a button the previous month will be changed and design is going to change as well.
             $('#prevMonth').click(function() {
                 //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
                 //getting current day in a month
-                n--;
-                console.log(n);
+                
+                if(n>0){
+                    n--;
+                }
+                if(n==0){
+                    n = 12;
+                    year= year -1;
+                }
+                
+                printDay(n,year);
+                //console.log(n);
+                //console.log(year);
             });
-           // $('#month').text(n);
-            //console.log(n);
+
+            // when I hit the next month. it will keep changing monthly
+            $('#nextMonth').click(function() {
+                //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
+                //getting current day in a month
+                if(n<=12){
+                    n++;
+                }
+                if(n>12){
+                    n=1;
+                    year=year+1;
+                }
+                printDay(n,year);
+                //console.log(n);
+                //console.log(year);
+            });
+            
+
+            
+
+            function printDay($month, $year){
+                $('#month').text($month+"/"+$year);
+            }
+
+
+            //start printing days and weeks in a month.
+            //procedures:
+            //step 1: 
         });
+        
     </script>
   </body>
 </html>

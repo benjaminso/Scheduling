@@ -1,0 +1,29 @@
+.border_container{
+    width: 100%;
+    margin: auto;
+    height:auto;
+    box-sizing: border-box;
+}
+
+.col-custom{
+    float: left;
+    box-sizing: border-box;
+    width: 14.1%;
+    height:200px;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.col-custom-date{
+    float: left;
+    box-sizing: border-box;
+    width: 14.1%;
+    height:25px;
+}
+.col-md-4{
+    margin:auto !important;
+}

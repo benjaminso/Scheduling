@@ -30,6 +30,12 @@
             border-radius: 50%;
             display: inline-block;
         }
+        .col-custom-date{
+            float: left;
+            box-sizing: border-box;
+            width: 14.1%;
+            height:25px;
+        }
 
     </style>
     </head>
@@ -51,52 +57,15 @@
                     </div>
                 </div>
                  <div class="row m-auto">
-                    <div class="col-custom text-center border border-primary rounded">Sunday</div>
-                    <div class="col-custom text-center border border-primary rounded">Monday</div>
-                    <div class="col-custom text-center border border-primary rounded">Tuesday</div>
-                    <div class="col-custom text-center border border-primary rounded">Wednesday</div>
-                    <div class="col-custom text-center border border-primary rounded">Thursday</div>
-                    <div class="col-custom text-center border border-primary rounded">Friday</div>
-                    <div class="col-custom text-center border border-primary rounded">Saturday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Sunday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Monday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Tuesday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Wednesday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Thursday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Friday</div>
+                    <div class="col-custom-date text-center border border-primary rounded">Saturday</div>
                 </div>
-
-               <!-- <div class="row m-auto day2">
-                    <div class="col-custom text-center border border-primary rounded">1</div>
-                    <div class="col-custom text-center border border-primary rounded">2</div>
-                    <div class="col-custom text-center border border-primary rounded">3</div>
-                    <div class="col-custom text-center border border-primary rounded">4</div>
-                    <div class="col-custom text-center border border-primary rounded">5</div>
-                    <div class="col-custom text-center border border-primary rounded">6</div>
-                    <div class="col-custom text-center border border-primary rounded">7</div>
-                </div>
-                <div class="row m-auto day2">
-                    <div class="col-custom text-center border border-primary rounded">1</div>
-                    <div class="col-custom text-center border border-primary rounded">2</div>
-                    <div class="col-custom text-center border border-primary rounded">3</div>
-                    <div class="col-custom text-center border border-primary rounded">4</div>
-                    <div class="col-custom text-center border border-primary rounded">5</div>
-                    <div class="col-custom text-center border border-primary rounded">6</div>
-                    <div class="col-custom text-center border border-primary rounded">7</div>
-                </div>
-                <div class="row m-auto day2">
-                    <div class="col-custom text-center border border-primary rounded">1</div>
-                    <div class="col-custom text-center border border-primary rounded">2</div>
-                    <div class="col-custom text-center border border-primary rounded">3</div>
-                    <div class="col-custom text-center border border-primary rounded">4</div>
-                    <div class="col-custom text-center border border-primary rounded">5</div>
-                    <div class="col-custom text-center border border-primary rounded">6</div>
-                    <div class="col-custom text-center border border-primary rounded">7</div>
-                </div>
-                <div class="row m-auto day2">
-                    <div class="col-custom text-center border border-primary rounded">1</div>
-                    <div class="col-custom text-center border border-primary rounded">2</div>
-                    <div class="col-custom text-center border border-primary rounded">3</div>
-                    <div class="col-custom text-center border border-primary rounded">4</div>
-                    <div class="col-custom text-center border border-primary rounded">5</div>
-                    <div class="col-custom text-center border border-primary rounded">6</div>
-                    <div class="col-custom text-center border border-primary rounded">7</div>
-                </div>
-                <div class="row m-auto day2">123</div> -->
+                <!-- javascript and lib(jquery) will be placed in here to generate weeks and date -->
             </div>
         </div>
     <!-- Optional JavaScript -->
@@ -106,54 +75,40 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
-            // console.log($('.row').length);
-            // console.log($('.row1').height());
             var dt = new Date();
             var n= dt.getMonth()+1;
             var year  = dt.getFullYear();
-            //console.log(year);
-            //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
-            printDay(n,year);
+
             //print month and year to the current position
-            
+            var daysInMonth= (new Date(year,n,0)).getDate();
+            var firstDay = new Date(year,n-1,1).getDay();
+            var numWeeks = Math.ceil(daysInMonth/7);
+            printDay(n,year);
+            removingDOMs();
+            printCalendar(daysInMonth,firstDay, numWeeks);
 
-            //getting current day in a month
-            //console.log(dt.getDate(dt.getMonth()));
-          
+
             // when I hit a button the previous month will be changed and design is going to change as well.
-            // $('<div/>',{
-            //     class:'row m-auto day2',
-                
-            // }).append();
-            
-            // $('<div/>',{
-            //     text: '1',
-            //     class:'col-custom text-center border border-primary rounded'
-            // });
-
-           
-           
 
             $('#prevMonth').click(function() {
-                //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
                 //getting current day in a month
-                
                 if(n>0){
                     n--;
                 }
                 if(n==0){
                     n = 12;
-                    year= year -1;
+                    year= year -1;             
                 }
-                
+                var daysInMonth= (new Date(year,n,0)).getDate();
+                var firstDay = new Date(year,n-1,1).getDay();
+                var numWeeks = Math.ceil(daysInMonth/7);
                 printDay(n,year);
-                //console.log(n);
-                //console.log(year);
+                removingDOMs();
+                printCalendar(daysInMonth,firstDay, numWeeks);
             });
 
             // when I hit the next month. it will keep changing monthly
             $('#nextMonth').click(function() {
-                //var n = (dt.getMonth() + 1) + "/" + dt.getDate()+"/"+ dt.getFullYear() ;
                 //getting current day in a month
                 if(n<=12){
                     n++;
@@ -162,43 +117,68 @@
                     n=1;
                     year=year+1;
                 }
+                var daysInMonth= (new Date(year,n,0)).getDate();
+                var firstDay = new Date(year,n-1,1).getDay();
+                var numWeeks = Math.ceil(daysInMonth/7);
                 printDay(n,year);
-                //console.log(n);
-                //console.log(year);
+                removingDOMs();
+                printCalendar(daysInMonth,firstDay, numWeeks);
             });
-            
-            
-            
 
             function printDay($month, $year){
                 $('#month').text($month+"/"+$year);
             }
 
 
-            //start printing days and weeks in a month.
-            //procedures:
-            //step 1: 7 columns, 4 weeks
-            //step 2: appending to tags
-            $row =4;
-            $column=7;
-            //number of days in a month
-            $daysInMonth= new Date(dt.getFullYear(),dt.getMonth(),0).getDate();
-            //getting fisrt date in a month . it goes from 0-6.[Sunday-Staurday]
-            $startingDate=(new Date(dt.getFullYear(),dt.getMonth(),1)).getDay();
-            alert($startingDate);
-
-            //var txt2 = $("<div></div>").addClass('row m-auto day2');
-            for($i=0;$i<$row;$i++){
-                var txt2 = $("<div></div>").addClass('row m-auto day2');
-                for($j=0;$j<$column;$j++){
-                  var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text($j);
-                  innerTxt.appendTo(txt2);
-                }
-                $('.border_container').append(txt2);
-            }
-
+           
 
         });
+        //remove all DOMs
+        function removingDOMs(){
+            $('.day2').remove();
+        }
+        //build a function to update the calendar
+         //start printing days and weeks in a month.
+            //procedures:
+            //step 1: 7 columns- 7 days,  weeks-dynamic since the weeks are changing based on number of days.
+            //step 2: appending to tags
+            //number of days in a month
+        function printCalendar(daysInMonth,startingDate,numWeeks){
+            // using to start with number of days in a month
+            counter=1;
+            // basicly, a week has 7 days
+            column=7;
+
+            for(i=0;i<numWeeks;i++){
+                    if(i==0){
+                        var txt2 = $("<div></div>").addClass('row m-auto day2');
+                        for(j=0;j<column;j++){
+                            if(j>=startingDate){
+                                var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text(counter++);
+                                innerTxt.appendTo(txt2);
+                            }else{
+                                var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text('0');
+                                innerTxt.appendTo(txt2);
+                            }
+                        }
+                    }
+                    if(i>0){
+                       
+                            var txt2 = $("<div></div>").addClass('row m-auto day2');
+                            for(j=0;j<column;j++){
+                                if(counter<=daysInMonth){
+                                    var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text(counter++);
+                                    innerTxt.appendTo(txt2);
+                                }else{
+                                    var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text('0');
+                                    innerTxt.appendTo(txt2);
+                                }
+                            }
+                    }
+                
+                $('.border_container').append(txt2);
+            }
+        }
         
     </script>
   </body>

@@ -1,0 +1,31 @@
+1. link to a page if a day is choosen. -  if it is possible-  change the color if the mouse is moved over and moved out
+2. When setting up a metting. User needs those information.
+    a. Host: email, message, flag, name, time
+    b. Reciever: emails, names.
+    c. location
+    d. ---- an email will be sent to each reciever.
+3. website must present day, time
+    Time: should print by hour from 8:00 AM to 4:00 PM
+4. Button: Submit, cancel, and clear.
+
+5. each box must be validated before submitting.- the validation can be used by jquery function - or I can write a module for it.
+
+
+
+
+                <div class="col-md-12">
+                    <!-- sender -->
+                    <!-- email -->
+                </div>
+                <div class="col-md-12">
+                    <!-- recievers -->
+                    <!-- emails  -->
+                </div>
+                <div class="col-md-12">
+                    <!-- location -->
+                </div>
+                <div class="col-md-12">
+                    <!-- submit -->
+                    <!-- cancel -->
+                    <!-- reset -->
+                </div>

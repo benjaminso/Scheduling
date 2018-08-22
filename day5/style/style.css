@@ -10,7 +10,28 @@
     box-sizing: border-box;
     width: 14.1%;
     height:200px;
+    position: relative;
+    border: 2px lightblue solid;
 }
+
+.text-design{
+    margin:auto;
+    text-align: center;
+    height: 20px;
+    border-bottom:1px blue solid;
+}
+.bottom-design{
+    position:relative;
+    height: 20px;
+    bottom:0px !important;
+    text-align: center;
+    top:150px;
+    border-top:1px blue dashed;
+    background-color: lightskyblue;
+    color:black;
+    font-weight: bolder;
+}
+
 
 .dot {
     height: 25px;
@@ -23,7 +44,18 @@
     box-sizing: border-box;
     width: 14.1%;
     height:25px;
+    background-color: red;
+    color:white;
 }
 .col-md-4{
     margin:auto !important;
+}
+
+.no-day{
+    background-color: gray;
+}
+
+.bottom-design:hover{
+    color:white;
+    background-color: red;
 }

@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+    // clickable event for adding a day:
+  
+
     var dt = new Date();
     var n= dt.getMonth()+1;
     var year  = dt.getFullYear();
@@ -65,6 +69,12 @@ $(document).ready(function(){
     function printDay($month, $year){
         $('#month').text($month+"/"+$year);
     }
+    //getting day when clicking
+    $('.bottom-design').click(function(){
+        var day = $(this).parent().get(0).childNodes[0].innerHTML;
+        console.log(day);
+        $(location).attr('href', 'createSchedule.php?id='+n+'-'+day+'-'+year);
+    });
 
 });
 //remove all DOMs
@@ -88,10 +98,12 @@ function printCalendar(daysInMonth,startingDate,numWeeks){
                 var txt2 = $("<div></div>").addClass('row m-auto day2');
                 for(j=0;j<column;j++){
                     if(j>=startingDate){
-                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text(counter++);
+                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded')/*.text(counter++)*/;
+                        var upperPart =  $("<div></div>").addClass('text-design').text(counter++).appendTo(innerTxt);
+                        var lowerPart = $("<div></div>").addClass('bottom-design label label-default').text('+').appendTo(innerTxt);
                         innerTxt.appendTo(txt2);
                     }else{
-                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text('0');
+                        var innerTxt = $("<div></div>").addClass('no-day col-custom text-center border border-primary rounded').text('0');
                         innerTxt.appendTo(txt2);
                     }
                 }
@@ -100,15 +112,17 @@ function printCalendar(daysInMonth,startingDate,numWeeks){
                 var txt2 = $("<div></div>").addClass('row m-auto day2');
                 for(j=0;j<column;j++){
                     if(counter<=daysInMonth){
-                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text(counter++);
+                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded')/*.text(counter++)*/;
+                        var upperPart =  $("<div></div>").addClass('text-design').text(counter++).appendTo(innerTxt);
+                        var lowerPart = $("<div></div>").addClass('bottom-design label label-default').text('+').appendTo(innerTxt);
                         innerTxt.appendTo(txt2);
                     }else{
-                        var innerTxt = $("<div></div>").addClass('col-custom text-center border border-primary rounded').text('0');
+                        var innerTxt = $("<div></div>").addClass('no-day col-custom text-center border border-primary rounded').text('0');
                         innerTxt.appendTo(txt2);
-                        }
                     }
+                }
             }
-        
         $('.border_container').append(txt2);
     }
+
 }

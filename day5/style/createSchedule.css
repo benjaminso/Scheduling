@@ -1,0 +1,35 @@
+#nameSender, #emailSender,#textArea,#receiver{
+    border: 0.5px solid black;
+    border-radius: 2.5px;
+    float:right;
+}
+.row{
+    padding-bottom:10px;
+}
+.label-defaul{
+    background-color:gray;
+    color:white;
+    margin-left:20px;
+}
+section{
+    padding-top:20px;
+}
+.label-defaul{
+    background-color:#808080;
+    color:white;
+    font-size:12px;
+    font-weight:bold !important;
+    border-radius:3px;
+}
+li:hover{
+    background-color:white;
+    color:black;
+    transition-duration:2s;
+    cursor: pointer;
+}
+.selectedli{
+    background-color:red;
+    color:white;
+    transition-duration:2s;
+    cursor: pointer;
+}

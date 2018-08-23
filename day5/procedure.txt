@@ -11,21 +11,5 @@
 5. each box must be validated before submitting.- the validation can be used by jquery function - or I can write a module for it.
 
 
-
-
-                <div class="col-md-12">
-                    <!-- sender -->
-                    <!-- email -->
-                </div>
-                <div class="col-md-12">
-                    <!-- recievers -->
-                    <!-- emails  -->
-                </div>
-                <div class="col-md-12">
-                    <!-- location -->
-                </div>
-                <div class="col-md-12">
-                    <!-- submit -->
-                    <!-- cancel -->
-                    <!-- reset -->
-                </div>
+Client side validation:
+    

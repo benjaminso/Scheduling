@@ -14,32 +14,33 @@
     <body>
         <?php
             //reading database
-//             $host="localhost";
-//             $username="root";
-//             $password="";
-//             $databasename="calendar";
-//             $link = @mysqli_connect($host,$username,$password,$databasename) or die("Cannot connect to database.");
-//             $query_info = "SELECT * from monthlytesting";
-//             $date=[];
-//             $event=[];
-//             $priority=[];
-//             if($result_query= @mysqli_query($link, $query_info)){ 
-//                 $counter=0;
-//                 while($row=@mysqli_fetch_row($result_query)){
-//                     //print_r($row);
-//                     $date[$counter]= $row[1];
-//                     $event[$counter]= $row[2];
-//                     $priority[$counter]= $row[3];
-//                     $counter++;
-//                 }
-//             }else{
-//                 echo "ERROR!CANNOT QUERY DATABASE";
-//             }
-//             @mysqli_close($link);
-// //$jsDate
-//             function listingEvent(){
-//                 print_r($GLOBALS['date']);
-//             }
+            $host="localhost";
+            $username="root";
+            $password="";
+            $databasename="calendar";
+            $link = @mysqli_connect($host,$username,$password,$databasename) or die("Cannot connect to database.");
+            $query_info = "SELECT * from monthlytesting";
+            $date=[];
+            $event=[];
+            $priority=[];
+            if($result_query= @mysqli_query($link, $query_info)){ 
+                $counter=0;
+                while($row=@mysqli_fetch_row($result_query)){
+                    //print_r($row);
+                    $date[$counter]= $row[1];
+                    $event[$counter]= $row[2];
+                    $priority[$counter]= $row[3];
+                    $counter++;
+                }
+            }else{
+                echo "ERROR!CANNOT QUERY DATABASE";
+            }
+            @mysqli_close($link);
+            
+            //$jsDate
+            function listingEvent(){
+                print_r($GLOBALS['date']);
+            }
             //echo listingEvent();
         ?>
         <div class="container">
@@ -60,7 +61,6 @@
                         </div>
                 </div>
                 
-                
                     <div class="row m-auto">
                         <div class="col-custom-date text-center border border-primary rounded">Sunday</div>
                         <div class="col-custom-date text-center border border-primary rounded">Monday</div>
@@ -73,59 +73,89 @@
 
                     <!-- beginning start -->
                     <?php
+                        //echo date("t", mktime(0, 0, 0, 4, 1, 2018)); 
                         if(empty($_GET)){
                             $DayNums = date("t");//number of days in a month -31
                             $FirstWeek = date("w", mktime(0,0,0, date("m"), 1, date("y")));// ngay nao xay ra day 1 - thu ba -2
                             $DayCount = 0;
                             $OneDay = 1;
-                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount);
+                            $noWeeks = countNumberofWeeks($DayNums,$FirstWeek);
+                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
                         }else{
+                            
                             $arrMonth = explode('-',($_GET["month"]).substr(7,strlen($_GET["month"])));
                             //print_r($arrMonth);//2018 7
                             $DayNums = cal_days_in_month(CAL_GREGORIAN, $arrMonth[1], $arrMonth[0]);
                             $FirstWeek = date("w", mktime(0,0,0, $arrMonth[1], 1, $arrMonth[0]));
                             $DayCount = 0;
                             $OneDay = 1;
-                            //print_r($FirstWeek);
-                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount);
+                            $noWeeks = countNumberofWeeks($DayNums,$FirstWeek);
+                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
                         }
                     
-                        function drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount){
+                        function drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks){
                             //loop by number of weeks
-                            for($i=0;$i<ceil($DayNums/7);$i++){
+                            for($i=0;$i<$noWeeks;$i++){
                                 echo '<div class="row m-auto day2">';
                                     if($i==0){
-                                        for($j=0;$j<7;$j++){
-                                            if($DayCount<$FirstWeek){
-                                                echo '<div class= "no-day col-custom text-center border border-primary rounded"></div>';
+                                        for($j=0 ; $j<7 ; $j++){
+                                            if($DayCount < $FirstWeek){
+                                                printEmptyDay();
                                             }else{
-                                                echo '<div class="col-custom text-center border border-primary rounded">';
-                                                    echo '<div class="text-design">';
-                                                    echo $OneDay++;
-                                                    echo '</div>';
-                                                    echo '<div class="bottom-design label label-default">+</div>';
-                                                echo '</div>';
+                                                $OneDay = printNonEmptyDay($OneDay);
                                             }
                                             $DayCount++;
                                         }
                                     }else{
                                         for($j=0;$j<7;$j++){
-                                            if($OneDay<=$DayNums){
-                                                echo '<div class="col-custom text-center border border-primary rounded">';
-                                                    echo '<div class="text-design">';
-                                                    echo $OneDay++;
-                                                    echo '</div>';
-                                                    echo '<div class="bottom-design label label-default">+</div>';
-                                                echo '</div>';
+                                            if($OneDay <= $DayNums){
+                                                $OneDay = printNonEmptyDay($OneDay);
                                             }else{
-                                                echo '<div class= "no-day col-custom text-center border border-primary rounded"></div>';
+                                                printEmptyDay();
                                             }
+                                            $DayCount++;
                                         }
-                                        
                                     }
                                 echo '</div>';
                             }
                         }
+                        //print empty Day
+                        function printEmptyDay(){
+                            echo '<div class= "no-day col-custom text-center border border-primary rounded"></div>';
+                        }
+                        //print Actual Day of a month
+                        function printNonEmptyDay($OneDay){
+                            echo '<div class="col-custom text-center border border-primary rounded">';
+                                echo '<div class="text-design">';
+                                    echo $OneDay++;
+                                echo '</div>';
+                            echo '<div class="bottom-design label label-default">+</div>';
+                            echo '</div>';
+                            return $OneDay;
+                        }
+                        //ending
+
+                        //begin counting number of weeks.
+                        function countNumberofWeeks($numDays, $FirstWeek){
+                            $numWeeks = 0;
+                            $counter = 0;
+                            $basedWeeks = ceil($numDays/7);
+                            if(($basedWeeks*7 - ($FirstWeek+1)) < $numDays){
+                                $numWeeks = $basedWeeks +1;
+                            }else{
+                                $numWeeks = $basedWeeks;
+                            }
+                            return $numWeeks;
+                        }
+                        //ending
+
+                        //begin comparing dates
+                        function comparedDate($oriDate,$newDate){
+                            if(strtotime($oriDate) === strtotime($newDate)){
+                                echo ("equal");
+                            }
+                        }
+                        //ending comparing dates
                     ?>
                     <!-- ENDING LOADING A MONTH -->
             </div>
@@ -141,8 +171,7 @@
             var dt = new Date();
             var n= dt.getMonth()+1;
             var year  = dt.getFullYear();
-            
-            
+
             /* current month using javascript */
             var currentMonth = n;
             var currentDay = dt.getDate();
@@ -172,7 +201,6 @@
                 if((window.location.search).length > 0){
                     var newString = cutString(window.location.search);
                     n = newString[1];
-                    console.log(newString[0]);
                     year= newString[0];
                     next(n,year);
                 }else{
@@ -183,8 +211,9 @@
             //start adding an event
             $('.bottom-design').click(function(){
                 var day = $(this).parent().get(0).childNodes[0].innerHTML;
-                console.log(day);
-                $(location).attr('href', 'createSchedule.php?id='+day+'-'+year);
+                var arrMonth = cutString(window.location.search);
+                var specificDate = arrMonth[0]+"-"+arrMonth[1]+"-"+day;
+                $(location).attr("href", "createSchedule.php?date=" + specificDate);
             });
             //ending
         });
@@ -216,15 +245,13 @@
             if(n<=12){
                     n++;
                 }
-                if(n>12){
+            if(n>12){
                     n=1;
                     year++;
-                }
+            }
                 $(location).attr("href", "index.php?month="+year+"-"+n);
         }
         //ending
-
-        
     </script>
   </body>
 </html>

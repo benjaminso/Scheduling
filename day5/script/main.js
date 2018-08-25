@@ -2,18 +2,22 @@ $(document).ready(function(){
 
     // clickable event for adding a day:
   
-
     var dt = new Date();
     var n= dt.getMonth()+1;
     var year  = dt.getFullYear();
-
+    var currentMonth = n;
+    var currentDay = dt.getDate();
+    var currentYear = year;
+    var currentPosition = new Date(currentYear,currentMonth-1,currentDay);
+   // alert(currentPosition);
+    //alert(currentDay);
     //print month and year to the current position
     var daysInMonth= (new Date(year,n,0)).getDate();
     var firstDay = new Date(year,n-1,1).getDay();
     var numWeeks = Math.ceil(daysInMonth/7);
     printDay(n,year);
     removingDOMs();
-    printCalendar(daysInMonth,firstDay, numWeeks);
+    printCalendar(daysInMonth,firstDay, numWeeks,currentMonth,currentDay,currentYear);
 
 
     // when I hit a button the previous month will be changed and design is going to change as well.
@@ -32,7 +36,7 @@ $(document).ready(function(){
         var numWeeks = Math.ceil(daysInMonth/7);
         printDay(n,year);
         removingDOMs();
-        printCalendar(daysInMonth,firstDay, numWeeks);
+        printCalendar(daysInMonth,firstDay, numWeeks,currentMonth,currentDay,currentYear);
     });
 
     // when I hit the next month. it will keep changing monthly
@@ -50,7 +54,7 @@ $(document).ready(function(){
         var numWeeks = Math.ceil(daysInMonth/7);
         printDay(n,year);
         removingDOMs();
-        printCalendar(daysInMonth,firstDay, numWeeks);
+        printCalendar(daysInMonth,firstDay, numWeeks,currentMonth,currentDay,currentYear);
     });
 
     $('#currentMonth').click(function(){
@@ -63,7 +67,7 @@ $(document).ready(function(){
         var numWeeks = Math.ceil(daysInMonth/7);
         printDay(n,year);
         removingDOMs();
-        printCalendar(daysInMonth,firstDay, numWeeks);
+        printCalendar(daysInMonth,firstDay, numWeeks,currentMonth,currentDay,currentYear);
     });
 
     function printDay($month, $year){
@@ -87,12 +91,12 @@ function removingDOMs(){
     //step 1: 7 columns- 7 days,  weeks-dynamic since the weeks are changing based on number of days.
     //step 2: appending to tags
     //number of days in a month
-function printCalendar(daysInMonth,startingDate,numWeeks){
+function printCalendar(daysInMonth,startingDate,numWeeks,currentMonth,currentDay,currentYear){
     // using to start with number of days in a month
     counter=1;
     // basicly, a week has 7 days
     column=7;
-
+    
     for(i=0;i<numWeeks;i++){
             if(i==0){
                 var txt2 = $("<div></div>").addClass('row m-auto day2');

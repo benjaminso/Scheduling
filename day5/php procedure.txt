@@ -1,7 +1,7 @@
 1. connect to mysql - done
 2. read from the database. - done
 3. write to the database
-4. red and write as a date format using php --> mysql
+4. read and write as a date format using php --> mysql
 5. read to a specific date.
 6. make css for each priority
 7. limit the word on each box- contain time only
@@ -20,3 +20,6 @@ date and specific day
 
 
 user cannot make schedule for a day when it was in the past.
+
+
+button: current month: se lay thang cu the cua nam

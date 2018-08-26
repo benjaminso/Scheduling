@@ -33,3 +33,6 @@ li:hover{
     transition-duration:2s;
     cursor: pointer;
 }
+.left-assignment{
+    position: absolute;
+}

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Calendar_PHP</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/createSchedule.css">
     </head>
     <body>
         <?php
@@ -74,15 +74,16 @@
                     <!-- beginning start -->
                     <?php
                         //echo date("t", mktime(0, 0, 0, 4, 1, 2018)); 
+                        //echo $GLOBALS['date'][0];
+                        //comparedDate("2018-7-1","2018-7-1");
                         if(empty($_GET)){
                             $DayNums = date("t");//number of days in a month -31
                             $FirstWeek = date("w", mktime(0,0,0, date("m"), 1, date("y")));// ngay nao xay ra day 1 - thu ba -2
                             $DayCount = 0;
                             $OneDay = 1;
                             $noWeeks = countNumberofWeeks($DayNums,$FirstWeek);
-                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
+                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks,date("m"),date("Y"));
                         }else{
-                            
                             $arrMonth = explode('-',($_GET["month"]).substr(7,strlen($_GET["month"])));
                             //print_r($arrMonth);//2018 7
                             $DayNums = cal_days_in_month(CAL_GREGORIAN, $arrMonth[1], $arrMonth[0]);
@@ -90,10 +91,10 @@
                             $DayCount = 0;
                             $OneDay = 1;
                             $noWeeks = countNumberofWeeks($DayNums,$FirstWeek);
-                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
+                            //drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
                         }
                     
-                        function drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks){
+                        function drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks,$month,$year){
                             //loop by number of weeks
                             for($i=0;$i<$noWeeks;$i++){
                                 echo '<div class="row m-auto day2">';
@@ -102,14 +103,14 @@
                                             if($DayCount < $FirstWeek){
                                                 printEmptyDay();
                                             }else{
-                                                $OneDay = printNonEmptyDay($OneDay);
+                                                $OneDay = printNonEmptyDay($OneDay,$month,$year);
                                             }
                                             $DayCount++;
                                         }
                                     }else{
                                         for($j=0;$j<7;$j++){
                                             if($OneDay <= $DayNums){
-                                                $OneDay = printNonEmptyDay($OneDay);
+                                                $OneDay = printNonEmptyDay($OneDay,$month,$year);
                                             }else{
                                                 printEmptyDay();
                                             }
@@ -124,16 +125,31 @@
                             echo '<div class= "no-day col-custom text-center border border-primary rounded"></div>';
                         }
                         //print Actual Day of a month
-                        function printNonEmptyDay($OneDay){
+                        function printNonEmptyDay($OneDay,$month,$year){
+                            $realDay = $year."-".$month."-".$OneDay;
                             echo '<div class="col-custom text-center border border-primary rounded">';
                                 echo '<div class="text-design">';
                                     echo $OneDay++;
                                 echo '</div>';
+                                //print event
+                                printingEvent($realDay);
                             echo '<div class="bottom-design label label-default">+</div>';
                             echo '</div>';
                             return $OneDay;
                         }
                         //ending
+
+                        //begin searching an event
+                        function printingEvent($realDate){
+                            for($i=0; $i<count($GLOBALS['date']);$i++){
+                                if(strtotime($GLOBALS['date'][$i]) === strtotime($realDate)){
+                                    echo '<div class="left-assignment">';
+                                        echo '<div class="label label-default">'.$GLOBALS["event"][$i].'</div>';
+                                    echo '</div>';
+                                }
+                            }
+                        }
+                        //end searching an event
 
                         //begin counting number of weeks.
                         function countNumberofWeeks($numDays, $FirstWeek){
@@ -153,6 +169,8 @@
                         function comparedDate($oriDate,$newDate){
                             if(strtotime($oriDate) === strtotime($newDate)){
                                 echo ("equal");
+                            }else{
+                                echo "not";
                             }
                         }
                         //ending comparing dates
@@ -160,6 +178,7 @@
                     <!-- ENDING LOADING A MONTH -->
             </div>
         </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

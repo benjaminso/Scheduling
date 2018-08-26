@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style/createSchedule.css">
 </head>
 <body>
+<span class="label label-default">1</span>
     <?php
         //printf($_GET['id']);
     ?>

@@ -91,7 +91,7 @@
                             $DayCount = 0;
                             $OneDay = 1;
                             $noWeeks = countNumberofWeeks($DayNums,$FirstWeek);
-                            //drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks);
+                            drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks,$arrMonth[1],$arrMonth[0]);
                         }
                     
                         function drawCalendar($OneDay,$DayNums,$FirstWeek,$DayCount,$noWeeks,$month,$year){
@@ -133,7 +133,12 @@
                                 echo '</div>';
                                 //print event
                                 printingEvent($realDay);
-                            echo '<div class="bottom-design label label-default">+</div>';
+                                if(strtotime(date("Y-m-d")) <= strtotime($realDay)){
+                                    //echo $realDay;
+                                    echo '<div class="bottom-design label label-default">+</div>';
+                                }else{
+                                   // echo "ko co ji";
+                                }
                             echo '</div>';
                             return $OneDay;
                         }
@@ -144,7 +149,11 @@
                             for($i=0; $i<count($GLOBALS['date']);$i++){
                                 if(strtotime($GLOBALS['date'][$i]) === strtotime($realDate)){
                                     echo '<div class="left-assignment">';
-                                        echo '<div class="label label-default">'.$GLOBALS["event"][$i].'</div>';
+                                        echo '<div class="label label-default">';
+                                        echo '<a href="testing.php?date='.$realDate.'">';
+                                            echo $GLOBALS["event"][$i];
+                                        echo '</a>';
+                                        echo '</div>';
                                     echo '</div>';
                                 }
                             }
@@ -235,6 +244,11 @@
                 $(location).attr("href", "createSchedule.php?date=" + specificDate);
             });
             //ending
+
+
+            //begin: when user clicks on an event, we will redirect users to another page where contains details of an event.
+            
+            //end
         });
 
         /* name:cutString

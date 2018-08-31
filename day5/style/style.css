@@ -60,3 +60,7 @@
     background-color: red;
     cursor: pointer;
 }
+.label a{
+    color:white;
+    text-decoration: none;
+}

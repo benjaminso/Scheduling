@@ -39,7 +39,21 @@ $(document).ready(function(){
 
             alert('Please check your input');
         }else{
+            $x.ajax({
+                type: "POST",
+                url: 'submitRequest.php',
+                dataType: 'json',
+                data: {functionname: 'add', arguments: [1, 2]},
             
+                success: function (obj, textstatus) {
+                              if( !('error' in obj) ) {
+                                  yourVariable = obj.result;
+                              }
+                              else {
+                                  console.log(obj.error);
+                              }
+                        }
+            });
         }
     });
 

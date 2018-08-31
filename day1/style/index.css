@@ -1,0 +1,46 @@
+body{
+    padding:0;
+    margin:0;
+    background-color:black;
+    font-family: 'Lora', serif;
+  }
+  .home-index{
+    background: url('img/background_1.jpg') no-repeat;
+    min-height: 700px;
+    background-size:cover;
+    background-attachment: fixed;
+  }
+  .overlay{
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    top:0;
+    left:0;
+    width: 100%;
+    min-height: 700px;
+  }
+  .content{
+    padding-top: 200px;
+  }
+  nav{
+    background-color: white;
+  }
+  ul li{
+    padding-left:20px;
+    
+  }
+  ul li a{
+    width:80px;
+    margin: auto;
+    padding:0;
+  }
+  ul li a:hover{
+    background-color: white;
+    color:black !important;
+    font-weight: bolder !important;
+  }
+  .display-1{
+    color:white !important;
+  }
+  .mid{
+    color:whitesmoke !important;
+  }
